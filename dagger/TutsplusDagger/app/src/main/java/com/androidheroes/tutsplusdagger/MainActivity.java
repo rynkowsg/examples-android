@@ -4,14 +4,27 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.androidheroes.tutsplusdagger.component.DaggerVehicleComponent;
+import com.androidheroes.tutsplusdagger.component.VehicleComponent;
+import com.androidheroes.tutsplusdagger.model.Vehicle;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    Vehicle vehicle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        VehicleComponent component = DaggerVehicleComponent.create();
+        vehicle = component.provideVehicle();
+        Toast.makeText(this, String.valueOf(vehicle.getSpeed()), Toast.LENGTH_SHORT).show();
+        vehicle.increaseSpeed(10);
+        Toast.makeText(this, String.valueOf(vehicle.getSpeed()), Toast.LENGTH_SHORT).show();
     }
 
 
